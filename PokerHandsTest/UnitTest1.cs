@@ -95,7 +95,7 @@ namespace PokerHandsTest
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
         }
 
-        //----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
+//----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Are_Any_Pairs()
@@ -145,5 +145,78 @@ namespace PokerHandsTest
             Assert.IsFalse(haveAnyPairs);
         }
 
+
+        //----------------------------------------------------------- CHECK IF TWO PAIRS ----------------------------------------------
+
+        [Test]
+        public void Given_A_Hand_With_No_Pairs_On_It_Return_If_There_Are_Two_Pairs()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "3");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveTwoPairs = player.IsThereTwoPairs();
+
+            //Assert
+            Assert.IsFalse(haveTwoPairs);
+        }
+        [Test]
+        public void Given_A_Hand_With_One_Pair_On_It_Return_If_There_Are_Two_Pairs()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "3");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "3");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveTwoPairs = player.IsThereTwoPairs();
+
+            //Assert
+            Assert.IsFalse(haveTwoPairs);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Two_Pairs_On_It_Return_If_There_Are_Two_Pairs()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "K");
+            Card card3 = new Card("D", "3");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "3");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveTwoPairs = player.IsThereTwoPairs();
+
+            //Assert
+            Assert.IsTrue(haveTwoPairs);
+        }
     }
 }

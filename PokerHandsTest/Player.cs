@@ -60,5 +60,37 @@
             return false;
 
         }
+
+        internal bool IsThereTwoPairs()
+        {
+                List<int> handValues = new List<int>();
+
+                int aux = 0;
+                int numPairs = 0;
+
+                foreach (Card card in this.cards)
+                {
+                    handValues.Add(card.FindTheCardValue(card));
+                }
+
+                handValues.Sort();
+
+                foreach (int card in handValues)
+                {
+                    if (card == aux)
+                    {
+                    aux = 0;
+                    numPairs++;
+                }
+                       
+                    else
+                        aux = card;
+                }
+            
+            if (numPairs > 1)
+                return true;
+            else
+                return false;
+        }
     }
 }
