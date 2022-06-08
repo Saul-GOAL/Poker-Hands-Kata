@@ -92,5 +92,34 @@
             else
                 return false;
         }
+
+        internal bool IsThereAnyTrio()
+        {
+            List<int> handValues = new List<int>();
+
+            int aux = 0;
+            int same = 0;
+
+            foreach (Card card in this.cards)
+            {
+                handValues.Add(card.FindTheCardValue(card));
+            }
+
+            handValues.Sort();
+
+            foreach (int card in handValues)
+            {
+                if (card == aux)
+                {
+                    same += 1;
+                }
+                else
+                    aux = card;
+
+                if (same == 2)
+                    return true;
+            }
+            return false;
+        }
     }
 }

@@ -5,13 +5,13 @@ namespace PokerHandsTest
         //Normal Input Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH
         //              0     1  2  3  4  5     6    7  8  9  10  11
 
-//----------------------------------------------------- RETURN  VALUES ----------------------------------------------
+        //----------------------------------------------------- RETURN  VALUES ----------------------------------------------
 
         [Test]
         public void Given_A_Card_S8_As_Strings_Return_Its_Int_Values_And_String_Clubs_Separated()
         {
             //Arrange
-            Card card = new Card("S","8");
+            Card card = new Card("S", "8");
             var testClub = "S";
             var testValue = 8;
 
@@ -49,17 +49,17 @@ namespace PokerHandsTest
             //Arrange
             Player player = new Player();
 
-            Card card1 = new Card("H","2");
-            Card card2 = new Card("H","5");
-            Card card3 = new Card("D","3");
-            Card card4 = new Card("S","5");
-            Card card5 = new Card("C","9");
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "3");
+            Card card4 = new Card("S", "5");
+            Card card5 = new Card("C", "9");
             player.TakeCard(card1);
-            player.TakeCard(card2); 
+            player.TakeCard(card2);
             player.TakeCard(card3);
             player.TakeCard(card4);
             player.TakeCard(card5);
-            
+
             var expectedHighCard = 9;
 
             //Act
@@ -95,7 +95,7 @@ namespace PokerHandsTest
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
         }
 
-//----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
+        //----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Are_Any_Pairs()
@@ -171,6 +171,7 @@ namespace PokerHandsTest
             //Assert
             Assert.IsFalse(haveTwoPairs);
         }
+
         [Test]
         public void Given_A_Hand_With_One_Pair_On_It_Return_If_There_Are_Two_Pairs()
         {
@@ -217,6 +218,80 @@ namespace PokerHandsTest
 
             //Assert
             Assert.IsTrue(haveTwoPairs);
+        }
+
+        //----------------------------------------------------------- CHECK IF TRIO ----------------------------------------------
+
+        [Test]
+        public void Given_A_Hand_With_No_Trio_On_It_Return_If_There_Are_A_Trio()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "3");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveTrio = player.IsThereAnyTrio();
+
+            //Assert
+            Assert.IsFalse(haveTrio);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Are_A_Trio()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "K");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveTrio = player.IsThereAnyTrio();
+
+            //Assert
+            Assert.IsFalse(haveTrio);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_Trio_On_It_Return_If_There_Are_A_Trio()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "J");
+            Card card4 = new Card("S", "J");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveTrio = player.IsThereAnyTrio();
+
+            //Assert
+            Assert.IsTrue(haveTrio);
         }
     }
 }
