@@ -41,7 +41,7 @@ namespace PokerHandsTest
             Assert.That(cardValue, Is.EqualTo(testValue));
         }
 
-        //-------------------------------------------------------- HIGHEST  CARD ----------------------------------------------
+//-------------------------------------------------------- HIGHEST  CARD ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_Only_Numbers_Return_The_Highes_card()
@@ -95,7 +95,7 @@ namespace PokerHandsTest
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
         }
 
-        //----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
+//----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Are_Any_Pairs()
@@ -146,7 +146,7 @@ namespace PokerHandsTest
         }
 
 
-        //----------------------------------------------------------- CHECK IF TWO PAIRS ----------------------------------------------
+//----------------------------------------------------------- CHECK IF TWO PAIRS ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Pairs_On_It_Return_If_There_Are_Two_Pairs()
@@ -220,7 +220,7 @@ namespace PokerHandsTest
             Assert.IsTrue(haveTwoPairs);
         }
 
-        //----------------------------------------------------------- CHECK IF TRIO ----------------------------------------------
+//----------------------------------------------------------- CHECK IF TRIO ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Trio_On_It_Return_If_There_Are_A_Trio()
@@ -292,6 +292,56 @@ namespace PokerHandsTest
 
             //Assert
             Assert.IsTrue(haveTrio);
+        }
+
+//----------------------------------------------------------- CHECK IF SRAIGHT ----------------------------------------------
+
+        [Test]
+        public void Given_A_Hand_With_No_Straight_On_It_Return_If_There_Are_A_Straight()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "K");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveStraight = player.IsStraight();
+
+            //Assert
+            Assert.IsFalse(haveStraight);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_Straight_On_It_Return_If_There_Are_A_Straight()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "Q");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveStraight = player.IsStraight();
+
+            //Assert
+            Assert.IsTrue(haveStraight);
         }
     }
 }

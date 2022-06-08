@@ -121,5 +121,30 @@
             }
             return false;
         }
+
+        internal bool IsStraight()
+        {
+            List<int> handValues = new List<int>();
+
+
+            foreach (Card card in this.cards)
+            {
+                handValues.Add(card.FindTheCardValue(card));
+            }
+
+            handValues.Sort();
+
+            for (int i = 0; i < this.cards.Count - 1; i++)
+            {
+                int card = handValues[i];
+                int nextCard = handValues[i + 1];
+
+                if (card + 1 != nextCard)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
