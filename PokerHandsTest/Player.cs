@@ -146,5 +146,32 @@
             }
             return true;
         }
+
+        internal bool IsFlush()
+        {
+            List<string> handClubs = new List<string>();
+
+            foreach (Card card in this.cards)
+            {
+                handClubs.Add(card.club);
+            }
+            handClubs.Sort();
+
+            string aux = handClubs[0];
+            int count = 0;
+
+            foreach (string club in handClubs)
+            {
+                if (club == aux)
+                {
+                    count++;
+                }
+            }
+
+            if (count == 5)
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace PokerHandsTest
         //Normal Input Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH
         //              0     1  2  3  4  5     6    7  8  9  10  11
 
-        //----------------------------------------------------- RETURN  VALUES ----------------------------------------------
+//----------------------------------------------------- RETURN  VALUES ----------------------------------------------
 
         [Test]
         public void Given_A_Card_S8_As_Strings_Return_Its_Int_Values_And_String_Clubs_Separated()
@@ -342,6 +342,56 @@ namespace PokerHandsTest
 
             //Assert
             Assert.IsTrue(haveStraight);
+        }
+
+//----------------------------------------------------------- CHECK IF FLUSH ----------------------------------------------
+
+        [Test]
+        public void Given_A_Hand_With_No_Flush_On_It_Return_If_There_Are_A_Flush()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "Q");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFlush = player.IsFlush();
+
+            //Assert
+            Assert.IsFalse(haveFlush);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Flush_On_It_Return_If_There_Are_A_Flush()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("H", "Q");
+            Card card4 = new Card("H", "K");
+            Card card5 = new Card("H", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFlush = player.IsFlush();
+
+            //Assert
+            Assert.IsTrue(haveFlush);
         }
     }
 }
