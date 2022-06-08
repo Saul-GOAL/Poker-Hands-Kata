@@ -1,6 +1,6 @@
 ﻿namespace PokerHandsTest
 {
-    internal class Card
+    public class Card
     {
         public string club
         {
