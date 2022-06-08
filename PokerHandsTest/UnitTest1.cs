@@ -223,7 +223,7 @@ namespace PokerHandsTest
 //----------------------------------------------------------- CHECK IF TRIO ----------------------------------------------
 
         [Test]
-        public void Given_A_Hand_With_No_Trio_On_It_Return_If_There_Are_A_Trio()
+        public void Given_A_Hand_With_No_Trio_On_It_Return_If_There_Is_A_Trio()
         {
             //Arrange
             Player player = new Player();
@@ -247,7 +247,7 @@ namespace PokerHandsTest
         }
 
         [Test]
-        public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Are_A_Trio()
+        public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Is_A_Trio()
         {
             //Arrange
             Player player = new Player();
@@ -271,7 +271,7 @@ namespace PokerHandsTest
         }
 
         [Test]
-        public void Given_A_Hand_With_A_Trio_On_It_Return_If_There_Are_A_Trio()
+        public void Given_A_Hand_With_A_Trio_On_It_Return_If_There_Is_A_Trio()
         {
             //Arrange
             Player player = new Player();
@@ -297,7 +297,7 @@ namespace PokerHandsTest
 //----------------------------------------------------------- CHECK IF SRAIGHT ----------------------------------------------
 
         [Test]
-        public void Given_A_Hand_With_No_Straight_On_It_Return_If_There_Are_A_Straight()
+        public void Given_A_Hand_With_No_Straight_On_It_Return_If_There_Is_A_Straight()
         {
             //Arrange
             Player player = new Player();
@@ -321,7 +321,7 @@ namespace PokerHandsTest
         }
 
         [Test]
-        public void Given_A_Hand_With_A_Straight_On_It_Return_If_There_Are_A_Straight()
+        public void Given_A_Hand_With_A_Straight_On_It_Return_If_There_Is_A_Straight()
         {
             //Arrange
             Player player = new Player();
@@ -347,7 +347,7 @@ namespace PokerHandsTest
 //----------------------------------------------------------- CHECK IF FLUSH ----------------------------------------------
 
         [Test]
-        public void Given_A_Hand_With_No_Flush_On_It_Return_If_There_Are_A_Flush()
+        public void Given_A_Hand_With_No_Flush_On_It_Return_If_There_Is_A_Flush()
         {
             //Arrange
             Player player = new Player();
@@ -371,7 +371,7 @@ namespace PokerHandsTest
         }
 
         [Test]
-        public void Given_A_Hand_With_Flush_On_It_Return_If_There_Are_A_Flush()
+        public void Given_A_Hand_With_Flush_On_It_Return_If_There_Is_A_Flush()
         {
             //Arrange
             Player player = new Player();
@@ -392,6 +392,228 @@ namespace PokerHandsTest
 
             //Assert
             Assert.IsTrue(haveFlush);
+        }
+    
+//---------------------------------------------------- CHECK IF THERE IS A FULL HOUSE ----------------------------------------------
+
+         [Test]
+        public void Given_A_Hand_With_No_FullHouse_On_It_Return_If_There_Is_A_FullHouse()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "Q");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFullHouse = player.IsFullHouse();
+
+            //Assert
+            Assert.IsFalse(haveFullHouse);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Two_Pairs_On_It_Return_If_There_Is_A_FullHouse()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "9");
+            Card card3 = new Card("D", "J");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFullHouse = player.IsFullHouse();
+
+            //Assert
+            Assert.IsFalse(haveFullHouse);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Three_Of_A_Kind_On_It_Return_If_There_Is_A_FullHouse()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "9");
+            Card card3 = new Card("D", "J");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "J");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFullHouse = player.IsFullHouse();
+
+            //Assert
+            Assert.IsFalse(haveFullHouse);
+
+        }
+
+        //[Test]
+        //public void Given_A_Hand_With_A_FullHouse_On_It_Return_If_There_Is_A_FullHouse()
+        //{
+        //    //Arrange
+        //    Player player = new Player();
+
+        //    Card card1 = new Card("H", "J");
+        //    Card card2 = new Card("H", "9");
+        //    Card card3 = new Card("D", "J");
+        //    Card card4 = new Card("S", "9");
+        //    Card card5 = new Card("C", "J");
+        //    player.TakeCard(card1);
+        //    player.TakeCard(card2);
+        //    player.TakeCard(card3);
+        //    player.TakeCard(card4);
+        //    player.TakeCard(card5);
+
+        //    //Act
+        //    bool haveFullHouse = player.IsFullHouse();
+
+        //    //Assert
+        //    Assert.IsTrue(haveFullHouse);
+
+        //}
+
+        //---------------------------------------------------- CHECK IF THERE FOUR OF A KIND ----------------------------------------------
+
+        [Test]
+        public void Given_A_Hand_With_No_Four_Of_A_Kind_On_It_Return_If_There_Is_Four_Of_A_Kind()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "Q");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFourOfAKind = player.IsFourOfAKind();
+
+            //Assert
+            Assert.IsFalse(haveFourOfAKind);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Two_Pairs_On_It_Return_If_There_Is_Four_Of_A_Kind()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "Q");
+            Card card4 = new Card("S", "A");
+            Card card5 = new Card("C", "J");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFourOfAKind = player.IsFourOfAKind();
+
+            //Assert
+            Assert.IsFalse(haveFourOfAKind);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Three_Of_A_Kind_On_It_Return_If_There_Is_Four_Of_A_Kind()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "A");
+            Card card4 = new Card("S", "A");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFourOfAKind = player.IsFourOfAKind();
+
+            //Assert
+            Assert.IsFalse(haveFourOfAKind);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_FullHouse_On_It_Return_If_There_Is_Four_Of_A_Kind()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "A");
+            Card card4 = new Card("S", "A");
+            Card card5 = new Card("C", "J");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFourOfAKind = player.IsFourOfAKind();
+
+            //Assert
+            Assert.IsFalse(haveFourOfAKind);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_Four_Of_A_Kind_On_It_Return_If_There_Is_Four_Of_A_Kind()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "A");
+            Card card4 = new Card("S", "A");
+            Card card5 = new Card("C", "A");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveFourOfAKind = player.IsFourOfAKind();
+
+            //Assert
+            Assert.IsTrue(haveFourOfAKind);
         }
     }
 }

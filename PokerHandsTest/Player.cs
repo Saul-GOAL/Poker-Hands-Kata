@@ -42,6 +42,8 @@
             List<int> handValues = new List<int>();
 
             int aux = 0;
+            int count = 0;
+            int pair = 0;
 
             foreach (Card card in this.cards)
             {
@@ -53,11 +55,21 @@
             foreach (int card in handValues)
             {
                 if (card == aux)
-                    return true;
+                {
+                    count++;
+                    pair++;
+                }
                 else
+                {
                     aux = card;
+                    count = 0;
+                }
             }
-            return false;
+
+            if (pair == 1)
+                return true;
+            else
+                return false;
 
         }
 
@@ -114,8 +126,11 @@
                     same += 1;
                 }
                 else
+                {
                     aux = card;
-
+                    same = 0;
+                }
+                    
                 if (same == 2)
                     return true;
             }
@@ -172,6 +187,43 @@
                 return true;
             else
                 return false;
+        }
+
+        internal bool IsFullHouse()
+        {
+            return (IsThereAnyTrio() && IsThereAnyPairs()); 
+        }
+
+        internal bool IsFourOfAKind()
+        {
+            List<int> handValues = new List<int>();
+
+            int aux = 0;
+            int same = 0;
+
+            foreach (Card card in this.cards)
+            {
+                handValues.Add(card.FindTheCardValue(card));
+            }
+
+            handValues.Sort();
+
+            foreach (int card in handValues)
+            {
+                if (card == aux)
+                {
+                    same += 1;
+                }
+                else
+                {
+                    aux = card;
+                    same = 0;
+                }
+
+                if (same == 3)
+                    return true;
+            }
+            return false;
         }
     }
 }
