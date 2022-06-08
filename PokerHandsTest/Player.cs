@@ -37,5 +37,28 @@
             return highestCard;
         }
 
+        internal bool IsThereAnyPairs()
+        {
+            List<int> handValues = new List<int>();
+
+            int aux = 0;
+
+            foreach (Card card in this.cards)
+            {
+                handValues.Add(card.FindTheCardValue(card));
+            }
+
+            handValues.Sort();
+
+            foreach (int card in handValues)
+            {
+                if (card == aux)
+                    return true;
+                else
+                    aux = card;
+            }
+            return false;
+
+        }
     }
 }
