@@ -17,12 +17,17 @@
             this.winningCard = null;
         }
 
-        public int FindTheHighestCard(List<Card> hand)
+        public void TakeCard(Card card)
+        {
+            this.cards.Add(card);
+        }
+
+        public int FindTheHighestCard()
         {
             int highestCard = 0;
             int aux = 0;
 
-            foreach (Card card in hand)
+            foreach (Card card in this.cards)
             {
                 aux = card.FindTheCardValue(card);
                 if (aux >= highestCard)

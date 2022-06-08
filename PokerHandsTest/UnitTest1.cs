@@ -19,7 +19,6 @@ namespace PokerHandsTest
             var cardValue = card.FindTheCardValue(card);
             var cardClub = card.FindTheCardClub(card);
 
-
             //Assert
             Assert.That(cardClub, Is.EqualTo(testClub));
             Assert.That(cardValue, Is.EqualTo(testValue));
@@ -33,11 +32,9 @@ namespace PokerHandsTest
             var testValue = 12;
             var testClub = "D";
 
-
             //Act
             var cardValue = card.FindTheCardValue(card);
             var cardClub = card.FindTheCardClub(card);
-
 
             //Assert
             Assert.That(cardClub, Is.EqualTo(testClub));
@@ -52,22 +49,24 @@ namespace PokerHandsTest
             //Arrange
             Player player = new Player();
 
-            List<Card> hand = new List<Card>();
-            hand.Add(new Card("H","2"));
-            hand.Add(new Card("H","5"));
-            hand.Add(new Card("D","3"));
-            hand.Add(new Card("S","5"));
-            hand.Add(new Card("C","9"));
-            hand.Add(new Card("D","4"));
-
+            Card card1 = new Card("H","2");
+            Card card2 = new Card("H","5");
+            Card card3 = new Card("D","3");
+            Card card4 = new Card("S","5");
+            Card card5 = new Card("C","9");
+            player.TakeCard(card1);
+            player.TakeCard(card2); 
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+            
             var expectedHighCard = 9;
 
             //Act
-            int highCard = player.FindTheHighestCard(hand);
+            int highCard = player.FindTheHighestCard();
 
             //Assert
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
-
         }
 
         [Test]
@@ -76,19 +75,21 @@ namespace PokerHandsTest
             //Arrange
             Player player = new Player();
 
-            List<Card> hand = new List<Card>();
-            hand.Add(new Card("H", "2"));
-            hand.Add(new Card("H", "5"));
-            hand.Add(new Card("D", "K"));
-            hand.Add(new Card("S", "5"));
-            hand.Add(new Card("C", "9"));
-            hand.Add(new Card("D", "4"));
+            Card card1 = new Card("H", "2");
+            Card card2 = new Card("H", "5");
+            Card card3 = new Card("D", "3");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "9");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
 
             var expectedHighCard = 12;
 
-
             //Act
-            int highCard = player.FindTheHighestCard(hand);
+            int highCard = player.FindTheHighestCard();
 
             //Assert
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
