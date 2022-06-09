@@ -3,13 +3,9 @@
     public class Card
     {
         public string club
-        {
-            get; set;
-        }
+        { get; set; }
         public string value
-        {
-            get; set;
-        }
+        { get; set; }
 
         public Card(string club, string value)
         {
@@ -17,16 +13,16 @@
             this.value = value;
         }
 
-        public object FindTheCardClub(Card card)
+        public object FindTheCardClub()
         {
             return club;
         }
-        public object FindTheCardFigure(Card card)
+        public object FindTheCardFigure()
         {
             return value;
         }
 
-        public int FindTheCardValue(Card card)
+        public int FindTheCardValue()
         {
             if (value == "A")
                 return 13;

@@ -3,18 +3,18 @@
     public class Player
     {
         public List<Card> cards
-        {
-            get; set;
-        }
-        public Card winningCard
-        {
-            get; set;
-        }
+        { get; set; }
+        public int winningCard
+        { get; set; }
+        public string name
+            { get; set; }
+
 
         public Player()
         {
             this.cards = new List<Card>();
-            this.winningCard = null;
+            this.winningCard = 0;
+            this.name = "";
         }
 
         public void TakeCard(Card card)
@@ -22,32 +22,17 @@
             this.cards.Add(card);
         }
 
-        public int FindTheHighestCard()
+        public int FindTheHighestCard(List<int> handValues)
         {
-            int highestCard = 0;
-            int aux = 0;
-
-            foreach (Card card in this.cards)
-            {
-                aux = card.FindTheCardValue(card);
-                if (aux >= highestCard)
-                    highestCard = aux;
-            }
-
-            return highestCard;
+            return handValues.Last();
         }
 
-        internal bool IsThereAnyPairs()
+        public bool IsThereAnyPairs()
         {
             int aux = 0;
             int count = 0;
-            List<int> handValues = new List<int>();
 
-            foreach (Card card in cards)
-            {
-                handValues.Add(card.FindTheCardValue(card));
-            }
-            handValues.Sort();
+            List<int> handValues = SortCards();
 
             List<int> pairs = new List<int>();
 
@@ -55,43 +40,45 @@
             {
                 if (card == aux)
                 {
-                    count++;
-                    pairs.Add(card);
+                    count++; 
                 }
                 else
                 {
+                    if (count == 1)
+                    {
+                        pairs.Add(aux);
+                        winningCard = aux;
+                    }    
                     aux = card;
                     count = 0;
                 }
             }
+            
 
             if (pairs.Count >= 1)
                 return true;
             else
+            {
+                winningCard = FindTheHighestCard(handValues);
                 return false;
+            }
+              
 
         }
 
-        internal bool IsThereTwoPairs()
+        public bool IsThereTwoPairs()
         {
-                List<int> handValues = new List<int>();
+            List<int> handValues = SortCards();
+            int aux = 0;
+            int numPairs = 0;
 
-                int aux = 0;
-                int numPairs = 0;
-
-                foreach (Card card in this.cards)
-                {
-                    handValues.Add(card.FindTheCardValue(card));
-                }
-
-                handValues.Sort();
-
-                foreach (int card in handValues)
+            foreach (int card in handValues)
                 {
                     if (card == aux)
                     {
                     aux = 0;
                     numPairs++;
+                    winningCard = card;
                 } 
                     else
                         aux = card;
@@ -100,23 +87,18 @@
             if (numPairs > 1)
                 return true;
             else
+            {
+                winningCard = FindTheHighestCard(handValues);
                 return false;
+            }
         }
 
-        internal bool IsThereAnyTrio()
+        public bool IsThereAnyTrio()
         {
-            List<int> handValues = new List<int>();
+            List<int> handValues = SortCards();
 
             int aux = 0;
             int count = 0;
-
-            foreach (Card card in this.cards)
-            {
-                handValues.Add(card.FindTheCardValue(card));
-            }
-
-            handValues.Sort();
-
             int trio = 0;
 
             foreach (int card in handValues)
@@ -127,6 +109,7 @@
                     if (count == 2)
                     {
                         trio++;
+                        winningCard = card;
                     }
                 }
                         
@@ -140,20 +123,15 @@
             if (trio!=0)
                 return true;
             else
+            {
+                winningCard = FindTheHighestCard(handValues);
                 return false;
+            }
         }
 
-        internal bool IsStraight()
+        public bool IsStraight()
         {
-            List<int> handValues = new List<int>();
-
-
-            foreach (Card card in this.cards)
-            {
-                handValues.Add(card.FindTheCardValue(card));
-            }
-
-            handValues.Sort();
+            List<int> handValues = SortCards();
 
             for (int i = 0; i < this.cards.Count - 1; i++)
             {
@@ -162,15 +140,18 @@
 
                 if (card + 1 != nextCard)
                 {
-                    return false;
+                        winningCard = FindTheHighestCard(handValues);
+                        return false;
                 }
             }
+            winningCard = FindTheHighestCard(handValues);
             return true;
         }
 
-        internal bool IsFlush()
+        public bool IsFlush()
         {
             List<string> handClubs = new List<string>();
+            List<int> handValues = SortCards();
 
             foreach (Card card in this.cards)
             {
@@ -190,51 +171,81 @@
             }
 
             if (count == 5)
+            {
+                winningCard = FindTheHighestCard(handValues);
                 return true;
+            }
             else
+            {
+                winningCard = FindTheHighestCard(handValues);
                 return false;
+            }
         }
 
-        internal bool IsFullHouse()
+        public bool IsFullHouse()
         {
-            return (IsThereAnyTrio() && IsThereAnyPairs()); 
+            List<int> handValues = SortCards();
+            if (IsThereAnyPairs() && IsThereAnyTrio())
+            {
+                return true;
+            }
+            else
+            {
+                winningCard = FindTheHighestCard(handValues);
+                return false;
+            }
         }
 
-        internal bool IsFourOfAKind()
+        public bool IsFourOfAKind()
         {
-            List<int> handValues = new List<int>();
+            List<int> handValues = SortCards();
 
             int aux = 0;
-            int same = 0;
-
-            foreach (Card card in this.cards)
-            {
-                handValues.Add(card.FindTheCardValue(card));
-            }
-
-            handValues.Sort();
+            int count = 0;
+            int poker = 0;
 
             foreach (int card in handValues)
             {
                 if (card == aux)
                 {
-                    same += 1;
+                    count++;
+                    if (count == 3)
+                    {
+                        poker++;
+                        winningCard = card;
+                    }
                 }
                 else
                 {
                     aux = card;
-                    same = 0;
-                }
-
-                if (same == 3)
-                    return true;
+                    count = 0;
+                } 
             }
-            return false;
+            if (poker > 0)
+                return true;
+            else
+            {
+                winningCard = FindTheHighestCard(handValues);
+                return false;
+            }
         }
 
-        internal bool IsStraightFlush()
+        public bool IsStraightFlush()
         {
             return (IsStraight() && IsFlush());
+        }
+
+        public List<int> SortCards()
+        {
+            List<int> handValues = new List<int>();
+
+            foreach (Card card in cards)
+            {
+                handValues.Add(card.FindTheCardValue());
+            }
+            handValues.Sort();
+
+            return handValues;
         }
     }
 }

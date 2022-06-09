@@ -2,8 +2,6 @@ namespace PokerHandsTest
 {
     public class UniTests
     {
-        //Normal Input Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH
-        //              0     1  2  3  4  5     6    7  8  9  10  11
 
 //----------------------------------------------------- RETURN  VALUES ----------------------------------------------
 
@@ -16,8 +14,8 @@ namespace PokerHandsTest
             var testValue = 8;
 
             //Act
-            var cardValue = card.FindTheCardValue(card);
-            var cardClub = card.FindTheCardClub(card);
+            var cardValue = card.FindTheCardValue();
+            var cardClub = card.FindTheCardClub();
 
             //Assert
             Assert.That(cardClub, Is.EqualTo(testClub));
@@ -33,8 +31,8 @@ namespace PokerHandsTest
             var testClub = "D";
 
             //Act
-            var cardValue = card.FindTheCardValue(card);
-            var cardClub = card.FindTheCardClub(card);
+            var cardValue = card.FindTheCardValue();
+            var cardClub = card.FindTheCardClub();
 
             //Assert
             Assert.That(cardClub, Is.EqualTo(testClub));
@@ -59,11 +57,13 @@ namespace PokerHandsTest
             player.TakeCard(card3);
             player.TakeCard(card4);
             player.TakeCard(card5);
+            List<int> handValues = player.SortCards();
+
 
             var expectedHighCard = 9;
 
             //Act
-            int highCard = player.FindTheHighestCard();
+            int highCard = player.FindTheHighestCard(handValues);
 
             //Assert
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
@@ -85,11 +85,12 @@ namespace PokerHandsTest
             player.TakeCard(card3);
             player.TakeCard(card4);
             player.TakeCard(card5);
+            List<int> handValues = player.SortCards();
 
             var expectedHighCard = 12;
 
             //Act
-            int highCard = player.FindTheHighestCard();
+            int highCard = player.FindTheHighestCard(handValues);
 
             //Assert
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
@@ -114,11 +115,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 3;
+
             //Act
             bool haveAnyPairs = player.IsThereAnyPairs();
 
             //Assert
             Assert.IsTrue(haveAnyPairs);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -138,11 +142,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveAnyPairs = player.IsThereAnyPairs();
 
             //Assert
             Assert.IsFalse(haveAnyPairs);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
 
@@ -165,11 +172,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveTwoPairs = player.IsThereTwoPairs();
 
             //Assert
             Assert.IsFalse(haveTwoPairs);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -189,11 +199,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveTwoPairs = player.IsThereTwoPairs();
 
             //Assert
             Assert.IsFalse(haveTwoPairs);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -213,11 +226,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveTwoPairs = player.IsThereTwoPairs();
 
             //Assert
             Assert.IsTrue(haveTwoPairs);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
 //----------------------------------------------------------- CHECK IF TRIO ----------------------------------------------
@@ -239,11 +255,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveTrio = player.IsThereAnyTrio();
 
             //Assert
             Assert.IsFalse(haveTrio);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -263,11 +282,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveTrio = player.IsThereAnyTrio();
 
             //Assert
             Assert.IsFalse(haveTrio);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -287,11 +309,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 10;
+
             //Act
             bool haveTrio = player.IsThereAnyTrio();
 
             //Assert
             Assert.IsTrue(haveTrio);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
 //----------------------------------------------------------- CHECK IF SRAIGHT ----------------------------------------------
@@ -313,11 +338,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveStraight = player.IsStraight();
 
             //Assert
             Assert.IsFalse(haveStraight);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -337,11 +365,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 13;
+
             //Act
             bool haveStraight = player.IsStraight();
 
             //Assert
             Assert.IsTrue(haveStraight);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
 //----------------------------------------------------------- CHECK IF FLUSH ----------------------------------------------
@@ -353,7 +384,7 @@ namespace PokerHandsTest
             Player player = new Player();
 
             Card card1 = new Card("H", "J");
-            Card card2 = new Card("H", "A");
+            Card card2 = new Card("H", "7");
             Card card3 = new Card("D", "Q");
             Card card4 = new Card("S", "K");
             Card card5 = new Card("C", "9");
@@ -363,11 +394,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveFlush = player.IsFlush();
 
             //Assert
             Assert.IsFalse(haveFlush);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -387,11 +421,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 13;
+
             //Act
             bool haveFlush = player.IsFlush();
 
             //Assert
             Assert.IsTrue(haveFlush);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
     
 //---------------------------------------------------- CHECK IF THERE IS A FULL HOUSE ----------------------------------------------
@@ -413,11 +450,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 13;
+
             //Act
             bool haveFullHouse = player.IsFullHouse();
 
             //Assert
             Assert.IsFalse(haveFullHouse);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -437,11 +477,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveFullHouse = player.IsFullHouse();
 
             //Assert
             Assert.IsFalse(haveFullHouse);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -461,11 +504,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveFullHouse = player.IsFullHouse();
 
             //Assert
             Assert.IsFalse(haveFullHouse);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
 
         }
 
@@ -486,11 +532,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 10;
+
             //Act
             bool haveFullHouse = player.IsFullHouse();
 
             //Assert
             Assert.IsTrue(haveFullHouse);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
 
         }
 
@@ -585,11 +634,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 13;
+
             //Act
             bool haveFourOfAKind = player.IsFourOfAKind();
 
             //Assert
             Assert.IsFalse(haveFourOfAKind);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -609,11 +661,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 13;
+
             //Act
             bool haveFourOfAKind = player.IsFourOfAKind();
 
             //Assert
             Assert.IsTrue(haveFourOfAKind);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         //------------------------------------------------- CHECK IF THERE IS A STRAIGHT FLUSH ----------------------------------------------
@@ -625,21 +680,24 @@ namespace PokerHandsTest
             Player player = new Player();
 
             Card card1 = new Card("H", "J");
-            Card card2 = new Card("H", "A");
-            Card card3 = new Card("D", "A");
-            Card card4 = new Card("S", "A");
-            Card card5 = new Card("C", "A");
+            Card card2 = new Card("H", "K");
+            Card card3 = new Card("D", "K");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "K");
             player.TakeCard(card1);
             player.TakeCard(card2);
             player.TakeCard(card3);
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveStraightFlush = player.IsStraightFlush();
 
             //Assert
             Assert.IsFalse(haveStraightFlush);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
         [Test]
@@ -699,7 +757,7 @@ namespace PokerHandsTest
             Card card1 = new Card("H", "9");
             Card card2 = new Card("H", "J");
             Card card3 = new Card("H", "Q");
-            Card card4 = new Card("H", "A");
+            Card card4 = new Card("H", "8");
             Card card5 = new Card("H", "K");
             player.TakeCard(card1);
             player.TakeCard(card2);
@@ -707,11 +765,14 @@ namespace PokerHandsTest
             player.TakeCard(card4);
             player.TakeCard(card5);
 
+            int expectedHighCard = 12;
+
             //Act
             bool haveStraightFlush = player.IsStraightFlush();
 
             //Assert
             Assert.IsTrue(haveStraightFlush);
+            Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
     }
 
