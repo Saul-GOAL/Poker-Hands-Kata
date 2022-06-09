@@ -4,13 +4,16 @@
     {
         public string club
         { get; set; }
-        public string value
+        private string figure
         { get; set; }
 
-        public Card(string club, string value)
+        public int value = 0;
+
+        public Card(string card)
         {
-            this.club = club;
-            this.value = value;
+            this.figure = card.Substring(0,1);
+            this.club = card.Substring(1);
+
         }
 
         public object FindTheCardClub()
@@ -19,21 +22,26 @@
         }
         public object FindTheCardFigure()
         {
-            return value;
+            return figure;
         }
 
-        public int FindTheCardValue()
+        public void FindTheCardValue()
         {
-            if (value == "A")
+            value = ConversorFigureValue();
+        }
+
+        private int ConversorFigureValue()
+        {
+            if (figure == "A")
                 return 13;
-            else if (value == "K")
+            else if (figure == "K")
                 return 12;
-            else if (value == "Q")
+            else if (figure == "Q")
                 return 11;
-            else if (value == "J")
+            else if (figure == "J")
                 return 10;
             else
-                return Int32.Parse(value);
+                return Int32.Parse(figure);
         }
     }
 }

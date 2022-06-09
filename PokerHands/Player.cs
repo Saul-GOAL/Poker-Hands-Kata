@@ -6,6 +6,8 @@
         { get; set; }
         public int winningCard
         { get; set; }
+        public string winningClub
+        { get; set; }
         public string name
             { get; set; }
 
@@ -14,6 +16,7 @@
         {
             this.cards = new List<Card>();
             this.winningCard = 0;
+            this.winningClub = "None";
             this.name = "";
         }
 
@@ -173,6 +176,7 @@
             if (count == 5)
             {
                 winningCard = FindTheHighestCard(handValues);
+                winningClub = handClubs[0];
                 return true;
             }
             else
@@ -241,7 +245,8 @@
 
             foreach (Card card in cards)
             {
-                handValues.Add(card.FindTheCardValue());
+                card.FindTheCardValue();
+                handValues.Add(card.value);
             }
             handValues.Sort();
 
