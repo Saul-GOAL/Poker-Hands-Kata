@@ -469,32 +469,32 @@ namespace PokerHandsTest
 
         }
 
-        //[Test]
-        //public void Given_A_Hand_With_A_FullHouse_On_It_Return_If_There_Is_A_FullHouse()
-        //{
-        //    //Arrange
-        //    Player player = new Player();
+        [Test]
+        public void Given_A_Hand_With_A_FullHouse_On_It_Return_If_There_Is_A_FullHouse()
+        {
+            //Arrange
+            Player player = new Player();
 
-        //    Card card1 = new Card("H", "J");
-        //    Card card2 = new Card("H", "9");
-        //    Card card3 = new Card("D", "J");
-        //    Card card4 = new Card("S", "9");
-        //    Card card5 = new Card("C", "J");
-        //    player.TakeCard(card1);
-        //    player.TakeCard(card2);
-        //    player.TakeCard(card3);
-        //    player.TakeCard(card4);
-        //    player.TakeCard(card5);
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "9");
+            Card card3 = new Card("D", "J");
+            Card card4 = new Card("S", "9");
+            Card card5 = new Card("C", "J");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
 
-        //    //Act
-        //    bool haveFullHouse = player.IsFullHouse();
+            //Act
+            bool haveFullHouse = player.IsFullHouse();
 
-        //    //Assert
-        //    Assert.IsTrue(haveFullHouse);
+            //Assert
+            Assert.IsTrue(haveFullHouse);
 
-        //}
+        }
 
-        //---------------------------------------------------- CHECK IF THERE FOUR OF A KIND ----------------------------------------------
+        //---------------------------------------------------- CHECK IF THERE ARE FOUR OF A KIND ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Four_Of_A_Kind_On_It_Return_If_There_Is_Four_Of_A_Kind()
@@ -615,5 +615,106 @@ namespace PokerHandsTest
             //Assert
             Assert.IsTrue(haveFourOfAKind);
         }
+
+        //------------------------------------------------- CHECK IF THERE IS A STRAIGHT FLUSH ----------------------------------------------
+
+        [Test]
+        public void Given_A_Hand_With_No_Straight_Flush_On_It_Return_If_There_Is_A_Straight_Flush()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "A");
+            Card card3 = new Card("D", "A");
+            Card card4 = new Card("S", "A");
+            Card card5 = new Card("C", "A");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveStraightFlush = player.IsStraightFlush();
+
+            //Assert
+            Assert.IsFalse(haveStraightFlush);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_Straight_On_It_Return_If_There_Is_A_Straight_Flush()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "9");
+            Card card2 = new Card("H", "J");
+            Card card3 = new Card("D", "Q");
+            Card card4 = new Card("S", "K");
+            Card card5 = new Card("C", "A");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveStraightFlush = player.IsStraightFlush();
+
+            //Assert
+            Assert.IsFalse(haveStraightFlush);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_Flush_On_It_Return_If_There_Is_A_Straight_Flush()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "J");
+            Card card2 = new Card("H", "3");
+            Card card3 = new Card("H", "6");
+            Card card4 = new Card("H", "8");
+            Card card5 = new Card("H", "K");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveStraightFlush = player.IsStraightFlush();
+
+            //Assert
+            Assert.IsFalse(haveStraightFlush);
+        }
+
+        [Test]
+        public void Given_A_Hand_With_A_Straight_Flush_On_It_Return_If_There_Is_A_Straight_Flush()
+        {
+            //Arrange
+            Player player = new Player();
+
+            Card card1 = new Card("H", "9");
+            Card card2 = new Card("H", "J");
+            Card card3 = new Card("H", "Q");
+            Card card4 = new Card("H", "A");
+            Card card5 = new Card("H", "K");
+            player.TakeCard(card1);
+            player.TakeCard(card2);
+            player.TakeCard(card3);
+            player.TakeCard(card4);
+            player.TakeCard(card5);
+
+            //Act
+            bool haveStraightFlush = player.IsStraightFlush();
+
+            //Assert
+            Assert.IsTrue(haveStraightFlush);
+        }
     }
+
+
+
 }

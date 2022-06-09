@@ -39,25 +39,24 @@
 
         internal bool IsThereAnyPairs()
         {
-            List<int> handValues = new List<int>();
-
             int aux = 0;
             int count = 0;
-            int pair = 0;
+            List<int> handValues = new List<int>();
 
-            foreach (Card card in this.cards)
+            foreach (Card card in cards)
             {
                 handValues.Add(card.FindTheCardValue(card));
             }
-
             handValues.Sort();
+
+            List<int> pairs = new List<int>();
 
             foreach (int card in handValues)
             {
                 if (card == aux)
                 {
                     count++;
-                    pair++;
+                    pairs.Add(card);
                 }
                 else
                 {
@@ -66,7 +65,7 @@
                 }
             }
 
-            if (pair == 1)
+            if (pairs.Count >= 1)
                 return true;
             else
                 return false;
@@ -93,8 +92,7 @@
                     {
                     aux = 0;
                     numPairs++;
-                }
-                       
+                } 
                     else
                         aux = card;
                 }
@@ -110,7 +108,7 @@
             List<int> handValues = new List<int>();
 
             int aux = 0;
-            int same = 0;
+            int count = 0;
 
             foreach (Card card in this.cards)
             {
@@ -119,22 +117,30 @@
 
             handValues.Sort();
 
+            int trio = 0;
+
             foreach (int card in handValues)
             {
                 if (card == aux)
                 {
-                    same += 1;
+                    count++;
+                    if (count == 2)
+                    {
+                        trio++;
+                    }
                 }
+                        
                 else
                 {
                     aux = card;
-                    same = 0;
+                    count = 0;
                 }
-                    
-                if (same == 2)
-                    return true;
             }
-            return false;
+
+            if (trio!=0)
+                return true;
+            else
+                return false;
         }
 
         internal bool IsStraight()
@@ -224,6 +230,11 @@
                     return true;
             }
             return false;
+        }
+
+        internal bool IsStraightFlush()
+        {
+            return (IsStraight() && IsFlush());
         }
     }
 }
