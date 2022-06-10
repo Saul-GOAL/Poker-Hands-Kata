@@ -16,11 +16,13 @@
 
         }
 
-        public object FindTheCardClub()
+//------------------------------------------------------------- CARD VARIABLE FINDER -----------------------------------------------
+        public string FindTheCardClub()
         {
             return club;
         }
-        public object FindTheCardFigure()
+
+        public string FindTheCardFigure()
         {
             return figure;
         }
@@ -30,7 +32,8 @@
             value = ConversorFigureValue();
         }
 
-        private int ConversorFigureValue()
+//------------------------------------------------------------ CARD VARIABLE CONVERSOR ---------------------------------------------
+        public int ConversorFigureValue()
         {
             if (figure == "A")
                 return 13;

@@ -4,38 +4,59 @@
     {
         public List<Card> cards
         { get; set; }
+        public List<int> handValues
+        { get; set; }
+
         public int winningCard
         { get; set; }
         public string winningClub
         { get; set; }
+
         public string name
             { get; set; }
-
 
         public Player()
         {
             this.cards = new List<Card>();
+            this.handValues = new List<int>();
             this.winningCard = 0;
             this.winningClub = "None";
-            this.name = "";
+            this.name = "None";
         }
 
+//------------------------------------------------------------- CARD  MANAGEMENT ---------------------------------------------------
+       
         public void TakeCard(Card card)
         {
             this.cards.Add(card);
+            if(cards.Count==5)
+                SortCards();
         }
 
-        public int FindTheHighestCard(List<int> handValues)
+        public int FindTheHighestCard()
         {
             return handValues.Last();
         }
+
+        public List<int> SortCards()
+        {
+
+            foreach (Card card in cards)
+            {
+                card.FindTheCardValue();
+                handValues.Add(card.value);
+            }
+            handValues.Sort();
+
+            return handValues;
+        }
+
+//------------------------------------------------------------ WINNING  HAND  CHECKER ----------------------------------------------
 
         public bool IsAPair()
         {
             int aux = 0;
             int count = 0;
-
-            List<int> handValues = SortCards();
 
             List<int> pairs = new List<int>();
 
@@ -62,7 +83,7 @@
                 return true;
             else
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 return false;
             }
               
@@ -71,7 +92,6 @@
 
         public bool IsTwoPairs()
         {
-            List<int> handValues = SortCards();
             int aux = 0;
             int numPairs = 0;
 
@@ -91,15 +111,13 @@
                 return true;
             else
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 return false;
             }
         }
 
         public bool IsThreeOfAKind()
         {
-            List<int> handValues = SortCards();
-
             int aux = 0;
             int count = 0;
             int trio = 0;
@@ -127,15 +145,13 @@
                 return true;
             else
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 return false;
             }
         }
 
         public bool IsStraight()
         {
-            List<int> handValues = SortCards();
-
             for (int i = 0; i < this.cards.Count - 1; i++)
             {
                 int card = handValues[i];
@@ -143,18 +159,17 @@
 
                 if (card + 1 != nextCard)
                 {
-                        winningCard = FindTheHighestCard(handValues);
+                        winningCard = FindTheHighestCard();
                         return false;
                 }
             }
-            winningCard = FindTheHighestCard(handValues);
+            winningCard = FindTheHighestCard();
             return true;
         }
 
         public bool IsFlush()
         {
             List<string> handClubs = new List<string>();
-            List<int> handValues = SortCards();
 
             foreach (Card card in this.cards)
             {
@@ -175,35 +190,32 @@
 
             if (count == 5)
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 winningClub = handClubs[0];
                 return true;
             }
             else
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 return false;
             }
         }
 
         public bool IsFullHouse()
         {
-            List<int> handValues = SortCards();
             if (IsAPair() && IsThreeOfAKind())
             {
                 return true;
             }
             else
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 return false;
             }
         }
 
         public bool IsFourOfAKind()
         {
-            List<int> handValues = SortCards();
-
             int aux = 0;
             int count = 0;
             int poker = 0;
@@ -229,7 +241,7 @@
                 return true;
             else
             {
-                winningCard = FindTheHighestCard(handValues);
+                winningCard = FindTheHighestCard();
                 return false;
             }
         }
@@ -239,18 +251,31 @@
             return (IsStraight() && IsFlush());
         }
 
-        public List<int> SortCards()
+//---------------------------------------------------------- WINNING  HAND  MANAGEMENT ---------------------------------------------
+       
+        public int WinnerHandRanking()
         {
-            List<int> handValues = new List<int>();
+            handValues = SortCards();
 
-            foreach (Card card in cards)
-            {
-                card.FindTheCardValue();
-                handValues.Add(card.value);
-            }
-            handValues.Sort();
-
-            return handValues;
+            if (IsStraightFlush())
+                return 1;
+            else if (IsFourOfAKind())
+                return 2;
+            else if (IsFullHouse())
+                return 3;
+            else if (IsFlush())
+                return 4;
+            else if (IsStraight())
+                return 5;
+            else if (IsThreeOfAKind())
+                return 6;
+            else if (IsTwoPairs())
+                return 7;
+            else if (IsAPair())
+                return 8;
+            else if (FindTheHighestCard() != 0)
+                return 9;
+            return 0;
         }
     }
 }

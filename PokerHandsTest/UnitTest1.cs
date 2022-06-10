@@ -5,7 +5,7 @@ namespace PokerHandsTest
     public class UniTests
     {
 
-//----------------------------------------------------- RETURN  VALUES ----------------------------------------------
+//----------------------------------------------------------- RETURN  VALUES ------------------------------------------------------
 
         [Test]
         public void Given_A_Card_S8_As_Strings_Return_Its_Int_Values_And_String_Clubs_Separated()
@@ -44,7 +44,7 @@ namespace PokerHandsTest
             Assert.That(cardValue, Is.EqualTo(testValue));
         }
 
-//-------------------------------------------------------- HIGHEST  CARD ----------------------------------------------
+//------------------------------------------------------------- HIGHEST  CARD -----------------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_Only_Numbers_Return_The_Highes_card()
@@ -62,13 +62,11 @@ namespace PokerHandsTest
             player.TakeCard(card3);
             player.TakeCard(card4);
             player.TakeCard(card5);
-            List<int> handValues = player.SortCards();
-
 
             var expectedHighCard = 9;
 
             //Act
-            int highCard = player.FindTheHighestCard(handValues);
+            int highCard = player.FindTheHighestCard();
 
             //Assert
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
@@ -95,13 +93,13 @@ namespace PokerHandsTest
             var expectedHighCard = 12;
 
             //Act
-            int highCard = player.FindTheHighestCard(handValues);
+            int highCard = player.FindTheHighestCard();
 
             //Assert
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
         }
 
-//----------------------------------------------------------- CHECK IF ONE PAIR ----------------------------------------------
+//------------------------------------------------------------- CHECK IF ONE PAIR -------------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_A_Pair_On_It_Return_If_There_Are_Any_Pairs()
@@ -158,7 +156,7 @@ namespace PokerHandsTest
         }
 
 
-//----------------------------------------------------------- CHECK IF TWO PAIRS ----------------------------------------------
+//----------------------------------------------------------- CHECK IF TWO PAIRS --------------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Pairs_On_It_Return_If_There_Are_Two_Pairs()
@@ -238,7 +236,7 @@ namespace PokerHandsTest
             Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
-//----------------------------------------------------------- CHECK IF TRIO ----------------------------------------------
+//----------------------------------------------------------- CHECK IF TRIO -------------------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Trio_On_It_Return_If_There_Is_A_Trio()
@@ -320,7 +318,7 @@ namespace PokerHandsTest
             Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
-//----------------------------------------------------------- CHECK IF SRAIGHT ----------------------------------------------
+//----------------------------------------------------------- CHECK IF SRAIGHT ----------------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Straight_On_It_Return_If_There_Is_A_Straight()
@@ -376,7 +374,7 @@ namespace PokerHandsTest
             Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
-//----------------------------------------------------------- CHECK IF FLUSH ----------------------------------------------
+//----------------------------------------------------------- CHECK IF FLUSH ------------------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Flush_On_It_Return_If_There_Is_A_Flush()
@@ -436,7 +434,7 @@ namespace PokerHandsTest
             Assert.That(player.winningClub, Is.EqualTo(expectedClub));
         }
     
-//---------------------------------------------------- CHECK IF THERE IS A FULL HOUSE ----------------------------------------------
+//---------------------------------------------------- CHECK IF THERE IS A FULL HOUSE ---------------------------------------------
 
          [Test]
         public void Given_A_Hand_With_No_FullHouse_On_It_Return_If_There_Is_A_FullHouse()
@@ -548,7 +546,7 @@ namespace PokerHandsTest
 
         }
 
-//---------------------------------------------------- CHECK IF THERE ARE FOUR OF A KIND ----------------------------------------------
+//---------------------------------------------------- CHECK IF THERE ARE FOUR OF A KIND ------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Four_Of_A_Kind_On_It_Return_If_There_Is_Four_Of_A_Kind()
@@ -784,7 +782,8 @@ namespace PokerHandsTest
             Assert.That(player.winningClub, Is.EqualTo(expectedClub));
         }
 
-        //------------------------------------------------- CHECK IF IT RETURNS PLAYERS NAMES ----------------------------------------------
+//------------------------------------------------- CHECK IF IT RETURNS PLAYERS NAMES ----------------------------------------------
+        
         [Test]
         public void Given_Two_New_players_Check_If_The_Names_Are_Stored()
         {
