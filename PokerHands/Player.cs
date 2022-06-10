@@ -1,4 +1,4 @@
-﻿namespace PokerHandsTest
+﻿namespace PokerHands
 {
     public class Player
     {
@@ -30,7 +30,7 @@
             return handValues.Last();
         }
 
-        public bool IsThereAnyPairs()
+        public bool IsAPair()
         {
             int aux = 0;
             int count = 0;
@@ -69,7 +69,7 @@
 
         }
 
-        public bool IsThereTwoPairs()
+        public bool IsTwoPairs()
         {
             List<int> handValues = SortCards();
             int aux = 0;
@@ -96,7 +96,7 @@
             }
         }
 
-        public bool IsThereAnyTrio()
+        public bool IsThreeOfAKind()
         {
             List<int> handValues = SortCards();
 
@@ -189,7 +189,7 @@
         public bool IsFullHouse()
         {
             List<int> handValues = SortCards();
-            if (IsThereAnyPairs() && IsThereAnyTrio())
+            if (IsAPair() && IsThreeOfAKind())
             {
                 return true;
             }

@@ -1,3 +1,5 @@
+using PokerHands;
+
 namespace PokerHandsTest
 {
     public class UniTests
@@ -121,7 +123,7 @@ namespace PokerHandsTest
             int expectedHighCard = 3;
 
             //Act
-            bool haveAnyPairs = player.IsThereAnyPairs();
+            bool haveAnyPairs = player.IsAPair();
 
             //Assert
             Assert.IsTrue(haveAnyPairs);
@@ -148,7 +150,7 @@ namespace PokerHandsTest
             int expectedHighCard = 12;
 
             //Act
-            bool haveAnyPairs = player.IsThereAnyPairs();
+            bool haveAnyPairs = player.IsAPair();
 
             //Assert
             Assert.IsFalse(haveAnyPairs);
@@ -177,7 +179,7 @@ namespace PokerHandsTest
             int expectedHighCard = 12;
 
             //Act
-            bool haveTwoPairs = player.IsThereTwoPairs();
+            bool haveTwoPairs = player.IsTwoPairs();
 
             //Assert
             Assert.IsFalse(haveTwoPairs);
@@ -203,7 +205,7 @@ namespace PokerHandsTest
             int expectedHighCard = 12;
 
             //Act
-            bool haveTwoPairs = player.IsThereTwoPairs();
+            bool haveTwoPairs = player.IsTwoPairs();
 
             //Assert
             Assert.IsFalse(haveTwoPairs);
@@ -229,7 +231,7 @@ namespace PokerHandsTest
             int expectedHighCard = 12;
 
             //Act
-            bool haveTwoPairs = player.IsThereTwoPairs();
+            bool haveTwoPairs = player.IsTwoPairs();
 
             //Assert
             Assert.IsTrue(haveTwoPairs);
@@ -257,7 +259,7 @@ namespace PokerHandsTest
             int expectedHighCard = 12;
 
             //Act
-            bool haveTrio = player.IsThereAnyTrio();
+            bool haveTrio = player.IsThreeOfAKind();
 
             //Assert
             Assert.IsFalse(haveTrio);
@@ -284,7 +286,7 @@ namespace PokerHandsTest
             int expectedHighCard = 12;
 
             //Act
-            bool haveTrio = player.IsThereAnyTrio();
+            bool haveTrio = player.IsThreeOfAKind();
 
             //Assert
             Assert.IsFalse(haveTrio);
@@ -311,7 +313,7 @@ namespace PokerHandsTest
             int expectedHighCard = 10;
 
             //Act
-            bool haveTrio = player.IsThereAnyTrio();
+            bool haveTrio = player.IsThreeOfAKind();
 
             //Assert
             Assert.IsTrue(haveTrio);
@@ -546,7 +548,7 @@ namespace PokerHandsTest
 
         }
 
-        //---------------------------------------------------- CHECK IF THERE ARE FOUR OF A KIND ----------------------------------------------
+//---------------------------------------------------- CHECK IF THERE ARE FOUR OF A KIND ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Four_Of_A_Kind_On_It_Return_If_There_Is_Four_Of_A_Kind()
@@ -674,7 +676,7 @@ namespace PokerHandsTest
             Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
         }
 
-        //------------------------------------------------- CHECK IF THERE IS A STRAIGHT FLUSH ----------------------------------------------
+//------------------------------------------------- CHECK IF THERE IS A STRAIGHT FLUSH ----------------------------------------------
 
         [Test]
         public void Given_A_Hand_With_No_Straight_Flush_On_It_Return_If_There_Is_A_Straight_Flush()
@@ -780,6 +782,27 @@ namespace PokerHandsTest
             Assert.IsTrue(haveStraightFlush);
             Assert.That(player.winningCard, Is.EqualTo(expectedHighCard));
             Assert.That(player.winningClub, Is.EqualTo(expectedClub));
+        }
+
+        //------------------------------------------------- CHECK IF IT RETURNS PLAYERS NAMES ----------------------------------------------
+        [Test]
+        public void Given_Two_New_players_Check_If_The_Names_Are_Stored()
+        {
+            //Arrange
+            Player player1 = new Player();
+            Player player2 = new Player();
+
+            string player1Name = "MrWhite";
+            String player2Name = "DrPurple";
+
+            //Act
+            Game poker = new Game();
+            poker.AddPlayer(player1, player1Name);
+            poker.AddPlayer(player2, player2Name);
+
+            //Assert
+            Assert.That(player1.name, Is.EqualTo(player1Name));
+            Assert.That(player2.name, Is.EqualTo(player2Name));
         }
     }
 

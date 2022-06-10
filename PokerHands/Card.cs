@@ -1,10 +1,10 @@
-﻿namespace PokerHandsTest
+﻿namespace PokerHands
 {
     public class Card
     {
         public string club
         { get; set; }
-        private string figure
+        public string figure
         { get; set; }
 
         public int value = 0;
