@@ -2,9 +2,9 @@
 {
     public class Card
     {
-        public string club
+        private string club
         { get; set; }
-        public string figure
+        private string figure
         { get; set; }
 
         public int value = 0;
@@ -16,7 +16,6 @@
 
         }
 
-//------------------------------------------------------------- CARD VARIABLE FINDER -----------------------------------------------
         public string FindTheCardClub()
         {
             return club;
@@ -32,7 +31,6 @@
             value = ConversorFigureValue();
         }
 
-//------------------------------------------------------------ CARD VARIABLE CONVERSOR ---------------------------------------------
         public int ConversorFigureValue()
         {
             if (figure == "A")
