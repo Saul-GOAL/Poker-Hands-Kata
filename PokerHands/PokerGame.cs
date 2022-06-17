@@ -50,9 +50,10 @@ namespace PokerHands
             Console.WriteLine(" ");
 
             if (winnerHandRankPlayer1 > winnerHandRankPlayer2)
-                Console.WriteLine(player2.playerName + " is the winner with a " + poker.stringWinnerHand(winnerHandRankPlayer2, player2));
+                Console.WriteLine(player2.playerName + " is the winner with a " + poker.GetWinnerHand(winnerHandRankPlayer2, player2));
+            //Console.WriteLine(player2);
             else if (winnerHandRankPlayer1 < winnerHandRankPlayer2)
-                Console.WriteLine(player1.playerName + " is the winner with a " + poker.stringWinnerHand(winnerHandRankPlayer1, player1));
+                Console.WriteLine(player1.playerName + " is the winner with a " + poker.GetWinnerHand(winnerHandRankPlayer1, player1));
             else
             {
                 Console.WriteLine("Both players hace the same Winner Hand: " + poker.stringWinnerHand(winnerHandRankPlayer1));
@@ -81,7 +82,7 @@ namespace PokerHands
             {
                 index = random.Next(FullDeckList.Count);
                 Card card = new Card(FullDeckList[index]);
-                player.TakeCard(card);
+                player.AddCardAndSortHand(card);
                 FullDeckList.RemoveAt(index);
             } 
             
@@ -89,27 +90,23 @@ namespace PokerHands
 
         public int WinnerHand(Player player)
         {
-            List<int> handValues = new List<int>();
-
-            if (player.IsStraightFlush())
+            if (player.HasStraightFlush())
                 return 1;
-            else if (player.IsFourOfAKind())
+            else if (player.HasFourOfAKind())
                 return 2;
-            else if (player.IsFullHouse())
+            else if (player.HasFullHouse())
                 return 3;
-            else if (player.IsFlush())
+            else if (player.HasFlush())
                 return 4;
-            else if (player.IsStraight())
+            else if (player.HasStraight())
                 return 5;
-            else if (player.IsThreeOfAKind())
+            else if (player.HasThreeOfAKind())
                 return 6;
-            else if (player.IsTwoPairs())
+            else if (player.HasTwoPairs())
                 return 7;
-            else if (player.IsAPair())
+            else if (player.HasAPair())
                 return 8;
-            else if (player.FindTheHighestCard()!=0)
-                return 9;
-            return 0;
+            return 9;
         }
 
         private string stringWinnerHand(int winnerHandRank)
@@ -134,7 +131,7 @@ namespace PokerHands
                 return ("A Higher card ");
         }
     
-        public string stringWinnerHand(int winnerHandRank, Player player)
+        public string GetWinnerHand(int winnerHandRank, Player player)
         {
             if (winnerHandRank == 1)
                 return ("Straight Flush of " + player.winningClub + " and Topper as " + this.ConversorValueFigure(player.winningCard));
@@ -168,9 +165,9 @@ namespace PokerHands
 
         public void printCards(Player player)
         {
-            foreach (Card card in player.cardValue)
+            foreach (Card card in player.Hand.Cards)
             {
-                Console.WriteLine(this.ConversorValueFigure(card.value) + " " + card.FindTheCardClub() );
+                Console.WriteLine(this.ConversorValueFigure(card.GetValue()) + " " + card.GetClub() );
             }
         }
 

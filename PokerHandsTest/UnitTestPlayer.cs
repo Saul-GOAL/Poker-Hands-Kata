@@ -4,7 +4,6 @@ namespace PokerHandsTest
 {
     public class UniTestsPlayer
     {
-
         [TestCase("2H", "5H", "3D", "5S", "9C", 9)]
         [TestCase("2H", "5H", "3D", "KS", "9C", 12)]
         public void Given_A_Full_Hand_Of_Cards_It_Returns_The_Highest_Value_Card(string ex_card1, string ex_card2,
@@ -19,11 +18,11 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
             int highCard = player.FindTheHighestCard();
@@ -32,7 +31,6 @@ namespace PokerHandsTest
             Assert.That(highCard, Is.EqualTo(expectedHighCard));
 
         }
-
 
         [TestCase("2H", "5H", "3D", "KS", "3C",true)]
         [TestCase("2H", "5H", "3D", "KS", "9C",false)]
@@ -48,19 +46,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveAnyPairs = player.IsAPair();
+            bool haveAnyPairs = player.HasAPair();
 
             //Assert
             Assert.That(haveAnyPairs, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("KH", "5H", "3D", "KS", "3C", true)]
         [TestCase("2H", "5H", "3D", "KS", "9C", false)]
@@ -77,19 +74,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveTwoPairs = player.IsTwoPairs();
+            bool haveTwoPairs = player.HasTwoPairs();
 
             //Assert
             Assert.That(haveTwoPairs, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("JH", "5H", "JD", "JS", "9C", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -106,19 +102,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveThreeOfAKind = player.IsThreeOfAKind();
+            bool haveThreeOfAKind = player.HasThreeOfAKind();
 
             //Assert
             Assert.That(haveThreeOfAKind, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("JH", "AH", "QD", "KS", "9C", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -134,19 +129,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveStraight = player.IsStraight();
+            bool haveStraight = player.HasStraight();
 
             //Assert
             Assert.That(haveStraight, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("2H", "5H", "3H", "KH", "9H", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -162,19 +156,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveFlush = player.IsFlush();
+            bool haveFlush = player.HasFlush();
 
             //Assert
             Assert.That(haveFlush, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("2H", "5H", "2C", "5S", "5C", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -191,19 +184,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveFullHouse = player.IsFullHouse();
+            bool haveFullHouse = player.HasFullHouse();
 
             //Assert
             Assert.That(haveFullHouse, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("2H", "5H", "5D", "5S", "5C", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -219,19 +211,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveFourOfAKind = player.IsFourOfAKind();
+            bool haveFourOfAKind = player.HasFourOfAKind();
 
             //Assert
             Assert.That(haveFourOfAKind, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("9H", "KH", "QH", "AH", "JH", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -247,19 +238,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveStraightFlush = player.IsStraightFlush();
+            bool haveStraightFlush = player.HasStraightFlush();
 
             //Assert
             Assert.That(haveStraightFlush, Is.EqualTo(expectedResult));
         }
-
 
         [TestCase("9H", "KH", "QH", "KS", "KC", true)]
         [TestCase("2H", "5H", "KD", "KS", "9C", false)]
@@ -275,19 +265,18 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
-            bool haveThreeOfAKind = player.RepeatCardCounter(3);
+            bool haveThreeOfAKind = player.CalculateSimilarCards(3);
 
             //Assert
             Assert.That(haveThreeOfAKind, Is.EqualTo(expectedResult));
         }
-
     }
 }
 

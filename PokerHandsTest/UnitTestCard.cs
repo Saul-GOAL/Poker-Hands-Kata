@@ -12,8 +12,8 @@ namespace PokerHandsTest
             Card card = new Card(cardName);
 
             //Act
-            card.FindTheCardValue();
-            var cardValue = card.value;
+            card.GetValue();
+            var cardValue = card.GetValue();
 
             //Assert
             Assert.That(cardValue, Is.EqualTo(expectedValue));
@@ -27,7 +27,7 @@ namespace PokerHandsTest
             Card card = new Card(cardName);
 
             //Act
-            var cardClub = card.FindTheCardClub();
+            var cardClub = card.GetClub();
 
             //Assert
             Assert.That(cardClub, Is.EqualTo(expectedClub));

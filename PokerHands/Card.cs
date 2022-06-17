@@ -2,12 +2,9 @@
 {
     public class Card
     {
-        private string club
-        { get; set; }
-        private string figure
-        { get; set; }
-
-        public int value = 0;
+        private string club;
+        
+        private string figure;
 
         public Card(string card)
         {
@@ -16,19 +13,19 @@
 
         }
 
-        public string FindTheCardClub()
+        public string GetClub()
         {
             return club;
         }
 
-        public string FindTheCardFigure()
+        public string GetFigure()
         {
             return figure;
         }
 
-        public void FindTheCardValue()
+        public int GetValue()
         {
-            value = ConversorFigureValue();
+            return ConversorFigureValue();
         }
 
         public int ConversorFigureValue()

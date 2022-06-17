@@ -1,12 +1,14 @@
-﻿namespace PokerHands
+﻿using System.Linq;
+
+namespace PokerHands
 {
     public class Player
     {
-        public List<Card> cardValue
-        { get; set; }
-        public List<int> cardValues
-        { get; set; }
+        private const int NUMBER_SIMILAR_CLUBS = 5;
 
+        public Hand Hand
+        { get; }
+ 
         public int winningCard
         { get; set; }
         public string winningClub
@@ -17,93 +19,63 @@
 
         public Player()
         {
-            this.cardValue = new List<Card>();
-            this.cardValues = new List<int>();
+            this.Hand = new Hand();
             this.winningCard = 0;
             this.winningClub = "None";
             this.playerName = "None";
         }
  
-        public void TakeCard(Card card)
+        public void AddCardAndSortHand(Card card)
         {
-            this.cardValue.Add(card);
-            if(cardValue.Count==5)
-                SortCards();
+            this.Hand.Add(card);
+            if (Hand.IsCompleted())
+                SortCardsByValue();
         }
 
-        public List<int> SortCards()
+        public List<int> SortCardsByValue()
         {
-            foreach (Card card in cardValue)
+            foreach (Card card in Hand.Cards)
             {
-                card.FindTheCardValue();
-                cardValues.Add(card.value);
+                Hand.cardValues.Add(card.GetValue());
             }
-            cardValues.Sort();
+            Hand.cardValues.Sort();
 
-            return cardValues;
+            return Hand.cardValues;
         }
 
-        public int FindTheHighestCard()
-        {
-            return cardValues.Last();
-        }
+        public int FindTheHighestCard() => Hand.cardValues.Max();
 
-        public bool IsAPair()
-        {
-            return PairsOfCardsCounter(2);
-        }
+        public bool HasAPair() => PairsOfCardsCounter(2);
 
-        public bool IsTwoPairs()
-        {
-           return PairsOfCardsCounter(4);
-        }
+        public bool HasTwoPairs() => PairsOfCardsCounter(4);
 
-        public bool IsThreeOfAKind()
-        {
-            return RepeatCardCounter(3);
-        }
+        public bool HasThreeOfAKind() => CalculateSimilarCards(3);
 
-        public bool IsStraight()
+        public bool HasStraight()
         {
-            for (int i = 0; i < this.cardValue.Count - 1; i++)
+            for (int index = 0; index < Hand.Size() - 1; index++)
             {
-                int cardValue = cardValues[i];
-                int nextCard = cardValues[i + 1];
+                int cardValue = Hand.cardValues[index];
+                int nextCard = Hand.cardValues[index + 1];
 
-                if (cardValue + 1 != nextCard)
+                if (cardValue + 1 == nextCard)
                 {
-                        return false;
+                    continue;
                 }
+                return false;
             }
             winningCard = FindTheHighestCard();
             return true;
         }
 
-        public bool IsFlush()
+        public bool HasFlush()
         {
-            List<string> handClubs = new List<string>();
+            var handClubs = Hand.Cards.Select(card => card.GetClub()).OrderBy(club => club);
 
-            foreach (Card card in this.cardValue)
-            {
-                handClubs.Add(card.FindTheCardClub());
-            }
-            handClubs.Sort();
-
-            string aux = handClubs[0];
-            int count = 0;
-
-            foreach (string club in handClubs)
-            {
-                if (club == aux)
-                {
-                    count++;
-                }
-            }
-
-            if (count == 5)
+            if (handClubs.Where(club => club == handClubs.First()).Count() == NUMBER_SIMILAR_CLUBS)
             {
                 winningCard = FindTheHighestCard();
-                winningClub = handClubs[0];
+                winningClub = handClubs.First();
                 return true;
             }
             else
@@ -112,9 +84,9 @@
             }
         }
 
-        public bool IsFullHouse()
+        public bool HasFullHouse()
         {
-            if (IsAPair() && IsThreeOfAKind())
+            if (HasAPair() && HasThreeOfAKind())
             {
                 winningCard = FindTheHighestCard();
                 return true;
@@ -125,24 +97,24 @@
             }
         }
 
-        public bool IsFourOfAKind()
+        public bool HasFourOfAKind()
         {
-            return RepeatCardCounter(4);
+            return CalculateSimilarCards(4);
         }
 
-        public bool IsStraightFlush()
+        public bool HasStraightFlush()
         {
-            return (IsStraight() && IsFlush());
+            return (HasStraight() && HasFlush());
         }
 
-        public bool RepeatCardCounter(int counter)
+        public bool CalculateSimilarCards(int counter)
         {
-            for (int i = 0; i < cardValue.Count; i++)
+            for (int index = 0; index < Hand.Size(); index++)
             {
-                int value = cardValue[i].value;
-                if (this.cardValue.FindAll(card => card.value.Equals(value)).Count == counter)
+                int value = Hand.GetValue(index);
+                if (Hand.CountSimilarCards(value) == counter)
                 {
-                    winningCard = cardValue[i].value;
+                    winningCard = value;
                     return true;
                 }
             }
@@ -151,16 +123,13 @@
 
         public bool PairsOfCardsCounter(int counter)
         {
-            List<int> pairs = new List<int>();
+            var pairs = Hand.Cards
+                .Select(card => card.GetValue())
+                .Where(cardValue => Hand.CountSimilarCards(cardValue) == 2);
 
-            for (int i = 0; i < cardValue.Count; i++)
+            if (pairs.Count() == counter)
             {
-                int value = cardValue[i].value;
-                if (this.cardValue.FindAll(card => card.value.Equals(value)).Count == 2) pairs.Add(this.cardValue[i].value);
-            }
-            if (pairs.Count == counter)
-            {
-                winningCard = pairs[0];
+                winningCard = pairs.First();
                 return true;
             }
             else
@@ -168,6 +137,10 @@
                 return false;
             }
         }
-
+        //public override string ToString()
+        //{
+            
+        //    return (playerName + " is the winner with a " + poker.GetWinnerHand(winnerHandRankPlayer2, player2));
+        //}
     }
 }

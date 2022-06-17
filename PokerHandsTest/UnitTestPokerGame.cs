@@ -43,11 +43,11 @@ namespace PokerHandsTest
             Card card4 = new Card(ex_card4);
             Card card5 = new Card(ex_card5);
 
-            player.TakeCard(card1);
-            player.TakeCard(card2);
-            player.TakeCard(card3);
-            player.TakeCard(card4);
-            player.TakeCard(card5);
+            player.AddCardAndSortHand(card1);
+            player.AddCardAndSortHand(card2);
+            player.AddCardAndSortHand(card3);
+            player.AddCardAndSortHand(card4);
+            player.AddCardAndSortHand(card5);
 
             //Act
             int handRanking = poker.WinnerHand(player);
